@@ -78,7 +78,7 @@ Morgan
 Npm package manager.
 
 #Main Pages
-Dashboard →  http://127.0.0.1:3000/applications/dashboard
+Dashboard →  http://127.0.0.1:3000/dashboard
 Stats Page → http://localhost:3000/stats/view
 Application full information page -> http://localhost:3000/applications/1/view
 
