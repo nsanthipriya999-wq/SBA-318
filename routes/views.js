@@ -33,4 +33,6 @@ console.log("is array:", Array.isArray(applications));
         total,applied,interviewing,rejected,offer
        });
     });
+
+ 
 export default router;
