@@ -5,26 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Application Tracker Dashboard</title>
-    <link rel="stylesheet" href="./public/style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
     <div class="container">
+
         <h1> Job Application Tracker</h1>
+
         <div class="nav">
             <a href="/">Dashboard</a>
             <a href="/stats/view">Stats</a>
         </div>
+
+
+        <% if(query && query.success) { %>
+        
+          <div class="success">Application added Successfully</div>
+       <% } %>
+
+       <!--      ----- Form for adding application-----              -->
         <div class="card">
             <h2>Add Application</h2>
             <form action="/applications" method="POST" class="form">
                 <input name="role" placeholder="Developer e.g" required />
-                <select name="" userId" required>
+                <select name="userId" required>
                     <option value="">Select User</option>
                     <% users.forEach(u=> { %>
-                        <option value="<%= u.id %>">
-                            <%+ u.name %>
-                        </option>
+                        <option value="<%= u.id %>"><%= u.name %></option>
                         <% }) %>
 
                 </select>
@@ -34,7 +42,7 @@
                 <select name="companyId" required>
                     <option value="">Select Company </option>
                     <% companies.forEach(c=> { %>
-                        <option value="<%= c.id %>" <%=c.name %></option>
+                        <option value="<%= c.id %>"><%=c.name %></option>
 
                         <% }) %>
                 </select>
@@ -51,15 +59,17 @@
                     <th>Role</th>
                     <th>Status</th>
                     <th>Priority</th>
-                    <th>Notes</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                    <th>View</th>
 
                 </tr>
-                <% applications.forEach(app=>{
-                    const user=users.find(u =>u.id===app.userId);
+                <% applications.forEach(app => { 
+                    const user=users.find(u =>u.id === app.userId);
                     const company=companies.find(c =>c.id === app.companyId);
 
 
-                    }); %>
+                     %>
 
 
                     <tr>
@@ -73,15 +83,39 @@
                             <%= app.role %>
                         </td>
                         <td>
-                            <span class="status" <%=app.status %>">
-                                <%= app.status %>
+                            <span class="status <%= app.status %>">
+
+                            <%= app.status %>
+                            
                             </span>
                         </td>
                         <td>
                             <%= app.priority %>
                         </td>
+<!----------------------Patch ---------------------------------->
+<td>
+    <form action="/applications/<%= app.id %>?_method=PATCH" method="POST" class="form">
+       <select name="status">
+          <option value="applied">Applied</option>
+           <option value="interviewing">Interviewing</option>
+            <option value="rejected">Rejected</option>
+             <option value="Offer">Offer</option>
 
-                        <td>
+          
+       </select>
+       <button class="update_btn">Update Application Status </button>
+    </form>
+</td>    
+
+<!----Delete-->
+<td>
+    <form action="/applications/<%= app.id %>?_method=DELETE" method="POST" class="form">
+        <button class="delete-btn">DELETE Application</button>
+     </form>   
+</td>
+
+<!-----------------------View------------------------------------------>
+<td>
                             <a href="/applications/<%= app.id %>/view">View Application Details</a>
                         </td>
 
