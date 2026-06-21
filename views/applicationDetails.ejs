@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Application Details</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Application Details</h1>
+
+  <div class="card">
+
+    <p><strong>User:</strong> <%= app.userName %></p>
+    <p><strong>Company:</strong> <%= app.companyName %></p>
+    <p><strong>Role:</strong> <%= app.role %></p>
+    <p><strong>Status:</strong> <%= app.status %></p>
+    <p><strong>Priority:</strong> <%= app.priority %></p>
+    <p><strong>Location:</strong> <%= app.location %></p>
+    <p><strong>Date Applied:</strong> <%= app.dateApplied %></p>
+
+    <p><strong>Notes:</strong> <%= app.notes %></p>
+
+    <a href="<%= app.link %>" target="_blank"> Open Job Link</a>
+
+  </div>
+
+  <a href="/dashboard">⬅ Back</a>
+
+</div>
+
+</body>
+</html>
