@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Stats</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Application Stats</h1>
+        <div class="nav">
+            <a href="/">Dashboard</a>
+        </div>
+
+        <div class="card">
+            <h2>Total Applications: <%= total %>
+            </h2>
+            <canvas id="myChart"></canvas>
+        </div>
+
+    </div>
+
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Applied', 'Interviewing', 'Rejected', 'Offer'],
+                datasets: [{
+                    label: 'Applications',
+                    data: [
+            <%= applied %>,
+            <%= interviewing %>,
+            <%= rejected %>,
+            <%= offer %> ],
+backgroundColor: ['blue', 'orange', 'red', 'green']
+                }]
+            }
+
+        });
+    </script>
+
+
+</body>
+
+</html>
