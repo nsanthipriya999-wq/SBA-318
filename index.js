@@ -48,7 +48,7 @@ app.use("/applications",applicationsR);
 app.use("/users",usersR);
 app.use("/companies",companiesR);
 app.get("/dashboard", (req, res) => {
-  res.render("dashboard", {
+  res.render("/dashboard", {
     applications: applications,
     users:user,
     companies:companies,

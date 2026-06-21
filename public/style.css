@@ -1,25 +1,28 @@
 
 
-*{
+/*{
 margin:0;
 padding:0;
 box-sizing:border-box;
+background-color: #2ecc71;
 
 
 
-}
+}*/
 
 body {
   font-family: Arial, sans-serif;
   background: #f4f6f9;
   color:#333;
   padding: 20px;
+  background: rgb(125, 199, 238);
 }
 
 .container {
   width: 90%;
   max-width: 1000px;
   margin: 20px auto;
+  background:rgb(139, 90, 218);
 }
 
 h1 {
@@ -29,16 +32,17 @@ h1 {
 }
 select {
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 1px solid #333;
   border-radius: 6px;
 }
 
 .card {
-  background: white;
+  background: rgb(171, 159, 239);
   padding: 20px;
   margin: 20px 0;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
 }
 
 form {
@@ -128,7 +132,7 @@ th {
 
 .nav a{
   text-decoration: none;
-  color:white;
+  color:rgb(182, 234, 26);
   background: #007bff;
   padding:8px 15px;
   border-radius:5px;

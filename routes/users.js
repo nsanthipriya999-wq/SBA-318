@@ -19,7 +19,7 @@ router.
 //---------------------------------------------post request-------http://localhost:3000/users-------------------------------------
   .post("/",(req,res,next)=>{
     if(!req.body.name||!req.body.username||!req.body.email){
-        return next(error(404,"data insufficient"));
+        return next(error(400,"data insufficient"));
     }
 
      const newUser={
@@ -81,7 +81,10 @@ if(index===-1)
 }
 const deletedUser=users.splice(index,1);                 //delete 1 record at index;
 
-res.json(deletedUser[0]);
+res.json({
+    message: "User deleted successfully",
+    deletedUser: deletedUser[0]
+});
 });
 
 export default router;

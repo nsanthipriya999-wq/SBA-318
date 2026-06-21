@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+     <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>User Dashboard</h1>
+
+    <!-- ADD USER FORM -->
+    <div class="card">
+        <form action="/users" method="POST">
+
+            <input type="text" name="name" placeholder="Enter your Name" required />
+
+            <input type="email" name="email" placeholder="Enter your Email" required />
+
+            <button type="submit">Add User</button>
+
+        </form>
+    </div>
+    <!---Delete User-->
+    <form action="/users/<%= user.id %>?_method=DELETE" method="POST">
+  <button>Delete</button>
+</form>
+
+    <hr>
+
+    <!-- USER TABLE -->
+    <div class="card">
+
+        <h2>All Users</h2>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td><%= user.name %></td>
+                    <td><%= user.email %></td>
+                </tr>
+            <% }) %>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -14,12 +14,13 @@
         <h1> Job Application Tracker</h1>
 
         <div class="nav">
-            <a href="/">Dashboard</a>
+            <a href="/dashboard">Dashboard</a>
             <a href="/stats/view">Stats</a>
         </div>
 
 
-        <% if(query && query.success) { %>
+        <% if(typeof query !== "undefined" && query.success) { %>
+             { %>
         
           <div class="success">Application added Successfully</div>
        <% } %>
@@ -99,24 +100,24 @@
           <option value="applied">Applied</option>
            <option value="interviewing">Interviewing</option>
             <option value="rejected">Rejected</option>
-             <option value="Offer">Offer</option>
+             <option value="offer">Offer</option>
 
           
        </select>
-       <button class="update_btn">Update Application Status </button>
+       <button class="update_btn">Update </button>
     </form>
 </td>    
 
 <!----Delete-->
 <td>
     <form action="/applications/<%= app.id %>?_method=DELETE" method="POST" class="form">
-        <button class="delete-btn">DELETE Application</button>
+        <button class="delete-btn">DELETE</button>
      </form>   
 </td>
 
 <!-----------------------View------------------------------------------>
 <td>
-                            <a href="/applications/<%= app.id %>/view">View Application Details</a>
+                            <a href="/applications/<%= app.id %>/view">View</a>
                         </td>
 
 

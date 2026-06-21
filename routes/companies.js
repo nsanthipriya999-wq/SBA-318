@@ -1,5 +1,5 @@
 import express from 'express';
-import ejs from 'ejs';
+
 import companies from "../data/companies.js";
 import error from '../utilities/error.js'
 
@@ -10,7 +10,7 @@ const router=express.Router();
 router.
      get("/",(req,res,next)=>{
 
-  const industry=req.query.id;
+  const industry=req.query.industry;
   let result =companies;
   if(industry)
   {
@@ -20,7 +20,7 @@ router.
   }
    if(result.length===0)
    {
-    return next(error(440,"Company not found"));
+    return res.json([]);
    }
   res.json(result);
 
@@ -33,7 +33,7 @@ router.
      const{name,industry,location}=req.body;
      if(!name||!industry)
      {
-        return next(error(440,"Data insufficient  to create a new record "));
+        return next(error(400,"Data insufficient  to create a new company record "));
      }
      const newComp={
         id:Date.now(),
@@ -54,14 +54,30 @@ router.
   //--------------------------http://localhost:3000/companies/:id---------------------------------
 
   router.get("/:id",(req,res,next)=>{
-  const company=companies.find(c.id===Number(req.params.id));
+  const company=companies.find(c=>c.id===Number(req.params.id));
   if(!company)
-    return next(error("Company not found"));
+    return next(error(404,"Company not found"));
 res.json(company);
 
   })
+//-----------------Patch request---------------------------
+router.patch("/:id", (req, res, next) => {
+  const company = companies.find(
+    c => c.id === Number(req.params.id)
+  );
 
+  if (!company) {
+    return next(error(404, "Company not found"));
+  }
 
+  const { name, industry, location } = req.body;
+
+  if (name) company.name = name;
+  if (industry) company.industry = industry;
+  if (location) company.location = location;
+
+  res.json(company);
+});
   //---------------------------Delete Request--------http://localhost:3000/companies/:id-------------------------------
 
 
@@ -71,7 +87,8 @@ if(index===-1)
 {
    return next(error(404,"No company found"));
 }
-const deletedComp=applications.splice(index,1);                 //delete 1 record at index;
+const deletedComp=companies.splice(index,1);                 //delete 1 record at index;
 
-res.json(deletedComp);
+res.json({message:"deleted successfully",deletedComp});
 });
+export default router;
