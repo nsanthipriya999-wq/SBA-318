@@ -49,6 +49,7 @@ Update user → PATCH http://localhost:3000/users/:id
 Delete user → DELETE http://localhost:3000/users/:id
 
 #Companies Routes
+
 Get all companies → http://localhost:3000/companies
 Filter by industry →http://localhost:3000/companies?industry=it
 Add company → POST http://localhost:3000/companies
@@ -56,6 +57,7 @@ Update company → PATCH http://localhost:3000/companies/:id
 Delete company → DELETE http://localhost:3000/companies/:id
 
 #Applications Routes
+
 Get all applications → http://localhost:3000/applications
 Filter applications →
 http://localhost:3000/applications?status=applied
@@ -67,6 +69,7 @@ Delete application → DELETE http://localhost:3000/applications/:id
 application view by id => http://localhost:3000/applications/1/view
 
 #Technologies Used:
+
 Node.js
 Express.js
 EJS
@@ -80,7 +83,7 @@ Npm package manager.
 #Main Pages
 Dashboard →  http://127.0.0.1:3000/dashboard
 Stats Page → http://localhost:3000/stats/view
-Application full information page -> http://localhost:3000/applications/1/view
+Detailed information of an Application -> http://localhost:3000/applications/1/view
 
 
 Thank you!!
