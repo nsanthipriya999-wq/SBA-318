@@ -1,8 +1,8 @@
 import express from 'express';
 import error from "./utilities/error.js";
 import ejs from 'ejs';
-import error from "./middleware/error.js";
-
+import errorMiddleware from "./middleware/error.js";
+import methodOverride from 'method-override';                //to override the method using query value 
 import users from './routes/users.js'
 import companies from './routes/companies.js'
 
@@ -16,6 +16,7 @@ const port = 3000;
 // Parsing Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+app.use(methodOverride("_method"));                           // to support delete and patch in dashboard ejs
 
 // Logging Middleware
 app.use((req, res, next) => {
@@ -39,7 +40,7 @@ app.use("/companies",companies);
 
 
 //error handler
-app.use(error);
+app.use(errorMiddleware);
 
 app.listen(3000,()=>{
     console.log(`server running on ${port}`);
