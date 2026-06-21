@@ -6,10 +6,10 @@ import error from '../utilities/error.js'
 
 //------------------Router Creation--------------
 const router=express.Router();
-//----------------------------------GET Request------------------------------------------------------------
+//----------------------------------GET All Request------------------------------------------------------------
 //-------------------------http://localhost:3000/applications-------------------------------------
 
-router.get("/",(req,res)=>{
+router.get("/",(req,res,next)=>{
  const status = req.query.status;
  const priority = req.query.priority;
  let result=applications;
@@ -28,6 +28,7 @@ if(priority)
 res.json(result);
 
 });
+//-------------------------Dashboard-----------------------------------------------------
 router.get("/dashboard", (req, res,next) => {
   res.render("dashboard", {
     applications,
@@ -35,6 +36,41 @@ router.get("/dashboard", (req, res,next) => {
     companies
   });
 });
+
+//--------------------http://localhost:3000/applications/:id ---------------------------
+router.get("/:id",(req,res,next)=>{
+ 
+   const application=applications.find(a=>a.id===Number(req.params.id));
+   
+   if(!application){
+     return next(error(404,"Application not found"));
+   
+   }
+   const user=users.find(u=>u.id===application.userId);
+   const company=companies.find(c=>c.id===application.companyId);
+   res.json({
+      ...application,
+      userName:user?user.name:"Unknown",
+      companyName:company?company.name:"Unknown"
+   });
+
+});
+
+//--------------------Regex Route---/applications/123  or /applications/id-123 or/applications/abc123-------------------------------------
+router.get(/^\/(?:id-)?([a-zA-Z0-9]+)$/, (req, res, next) => {
+  const id = Number(req.params[0]);
+  const app = applications.find(a => a.id === id);
+  if (!app) {
+    return next(error(404, "Application not found"));
+  }
+
+  res.json({
+    message: "Matched using REGEX route",
+    data: app
+  });
+});
+
+//-------------------------------Application Details View------------------------------------
 router.get("/:id/view", (req, res, next) => {
   const app = applications.find(
     a => a.id === Number(req.params.id)
@@ -55,18 +91,7 @@ router.get("/:id/view", (req, res, next) => {
     }
   });
 });
-//--------------------http://localhost:3000/applications/:id ---------------------------
-router.get("/:id",(req,res,next)=>{
- 
-   const application=applications.find(a=>a.id===Number(req.params.id));
-   if(!application){
-     return next(error(404,"Application not found"));
-   
-   }
 
-  res.json(application);
-
-});
 
 //------------------------------------POST Request------------------------------------------
 //------------------------http://localhost:3000/applications-----------------------------------
@@ -79,7 +104,6 @@ router.post("/",(req,res,next)=>{
         status,
         website,
         notes,
-        dateApplied,
         priority}  = req.body;
 if(!companyId||!role||!userId){
    return next(error(400,"Data Insufficient"));
@@ -130,13 +154,7 @@ res.json(application);
 //------------------------------DELETE REQUEST------------------------------------------------
 //----------------------------------http://localhost:3000/applications/:id---------------
 
-router.get("/", (req, res,next) => {
-  res.render("dashboard", {
-    applications,
-    users,
-    companies
-  });
-});
+
 
 router.delete("/:id",(req,res,next)=>{
 const index=applications.findIndex(a=>a.id===Number(req.params.id));
@@ -153,13 +171,6 @@ res.json({message:"Deleted Successfully" ,deletedApp});
 });
 
 
-router.get(/^\/app(lication)?s\/\d+$/,(req,res,next)=>{
-   const id =Number(req.params[1]);
-   const app=applications.find(a=>a.id===id);
-   if(!app)
-      return res.status(404).json({error:"Not Found"});
-   res.json(app);
-});
 
 
 export default router;

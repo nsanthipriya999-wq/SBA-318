@@ -1,4 +1,6 @@
 import express from 'express';
+import morgan from 'morgan';             //Logs every request
+
 import logger from "./middleware/logger.js"
 import applications from "./data/applications.js";
 import user from "./data/users.js";
@@ -17,12 +19,13 @@ import companiesR from './routes/companies.js'
 import applicationsR from './routes/applications.js'
 
 const app = express();
+app.use(morgan("dev"));
 const port = 3000;
 
 // Parsing Middleware
 app.use(express.json());
 app.use(logger);
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));                           // to support delete and patch in dashboard ejs
 
 // Logging Middleware
@@ -36,22 +39,22 @@ app.use(methodOverride("_method"));                           // to support dele
 
 //view engine
 
-app.set("view engine","ejs");
-app.set("views","./views");
+app.set("view engine", "ejs");
+app.set("views", "./views");
 app.use(express.static("public"));
 
 //routes
 app.get("/test", (req, res) => {
   res.send("WORKING");
 });
-app.use("/applications",applicationsR);
-app.use("/users",usersR);
-app.use("/companies",companiesR);
+app.use("/applications", applicationsR);
+app.use("/users", usersR);
+app.use("/companies", companiesR);
 app.get("/dashboard", (req, res) => {
-  res.render("/dashboard", {
+  res.render("dashboard", {
     applications: applications,
-    users:user,
-    companies:companies,
+    users: user,
+    companies: companies,
     query: req.query || {}
   });
 });
@@ -75,6 +78,6 @@ app.get("/stats/view", (req, res) => {
 //error handler
 app.use(errorMiddleware);
 
-app.listen(3000,()=>{
-    console.log(`server running on ${port}`);
+app.listen(3000, () => {
+  console.log(`server running on ${port}`);
 })
