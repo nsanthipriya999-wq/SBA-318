@@ -34,7 +34,7 @@ router.
       res.status(201).json(newUser);
     })
 
-//update user
+//---------------------------------------------------update user----------------------------------------------
 
 .patch("/:id",(req,res,next)=>{
  
@@ -51,7 +51,7 @@ for (const u of allowed){
     }
 }
 
-res.json(user);
+res.status(200).json(user);                                  //status code 200 for  'patch'
 
 })
 
@@ -86,5 +86,6 @@ res.json({
     deletedUser: deletedUser[0]
 });
 });
+
 
 export default router;

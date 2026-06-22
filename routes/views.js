@@ -1,5 +1,4 @@
 import express from 'express';
-
 import applications from "../data/applications.js";
 import companies from "../data/companies.js";
 import error from '../utilities/error.js';

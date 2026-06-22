@@ -1,12 +1,13 @@
 import express from 'express';
-
 import companies from "../data/companies.js";
 import error from '../utilities/error.js'
 
 //------------------Router Creation--------------
 const router=express.Router();
+
 //----------------------------------GET Request------------------------------------------------------------
 //-------------------------http://localhost:3000/companies-------------------------------------
+
 router.
      get("/",(req,res,next)=>{
 
@@ -39,9 +40,6 @@ router.
         id:Date.now(),
         name,
         industry,location:location||"None"
-
-
-
 
      };
      companies.push(newComp);
@@ -91,4 +89,5 @@ const deletedComp=companies.splice(index,1);                 //delete 1 record a
 
 res.json({message:"deleted successfully",deletedComp});
 });
+
 export default router;

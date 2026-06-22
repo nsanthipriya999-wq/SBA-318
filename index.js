@@ -1,6 +1,5 @@
 import express from 'express';
 import morgan from 'morgan';             //Logs every request
-
 import logger from "./middleware/logger.js"
 import applications from "./data/applications.js";
 import user from "./data/users.js";
@@ -11,12 +10,8 @@ import ejs from 'ejs';
 import errorMiddleware from "./middleware/error.js";
 import methodOverride from 'method-override';                //to override the method using query value 
 import usersR from './routes/users.js'
-import companiesR from './routes/companies.js'
-//import Chart from 'chart.js/auto'; //chart for bar chart
-
-
-
-import applicationsR from './routes/applications.js'
+import companiesR from './routes/companies.js';
+import applicationsR from './routes/applications.js';
 
 const app = express();
 app.use(morgan("dev"));
@@ -37,13 +32,13 @@ app.use(methodOverride("_method"));                           // to support dele
   next();
 });*/
 
-//view engine
+//-------------------------------------------view engine--------------------------------------------------
 
 app.set("view engine", "ejs");
 app.set("views", "./views");
 app.use(express.static("public"));
 
-//routes
+//-----------------------------------------routes------------------------------------
 app.get("/test", (req, res) => {
   res.send("WORKING");
 });
@@ -75,7 +70,7 @@ app.get("/stats/view", (req, res) => {
 });
 
 
-//error handler
+//------------------------------------error handler-----------------------------------------
 app.use(errorMiddleware);
 
 app.listen(3000, () => {
